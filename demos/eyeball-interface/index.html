@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eyeball Interface | Flash Archive</title>
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+  </head>
+  <body class="demo-page" data-theme="eyeball">
+    <header class="demo-header">
+      <a class="back-link" href="../../index.html">← Back to archive</a>
+      <h1>Eyeball Interface</h1>
+    </header>
+
+    <main class="demo-shell">
+      <section class="demo-stage">
+        <div id="flash-placeholder" class="flash-placeholder">
+          <div>
+            <strong>Loading Flash demo...</strong>
+            <p id="status-message">
+              Attempting to play <strong>interface_demo.swf</strong> with Ruffle.
+            </p>
+          </div>
+        </div>
+
+        <div id="flash-stage" class="flash-frame"></div>
+      </section>
+    </main>
+
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        const swfPath = './interface_demo.swf';
+        const flashPlaceholder = document.getElementById('flash-placeholder');
+        const flashStage = document.getElementById('flash-stage');
+        const statusMessage = document.getElementById('status-message');
+
+        if (!window.RufflePlayer) {
+          flashPlaceholder.innerHTML = `
+            <div>
+              <strong>Ruffle failed to load</strong>
+              <p>The emulator script did not initialize. Please refresh the page.</p>
+            </div>
+          `;
+          flashPlaceholder.style.display = 'grid';
+          return;
+        }
+
+        const ruffle = window.RufflePlayer.newest();
+        const player = ruffle.createPlayer();
+
+        player.style.width = '740px';
+        player.style.height = '600px';
+        player.style.maxWidth = '100%';
+        player.style.display = 'block';
+        player.setAttribute('data-ruffle', 'true');
+
+        flashStage.appendChild(player);
+        flashPlaceholder.style.display = 'none';
+        flashStage.style.display = 'block';
+
+        player.addEventListener('error', () => {
+          flashStage.style.display = 'none';
+          flashPlaceholder.style.display = 'grid';
+          statusMessage.textContent = 'The SWF could not be loaded by Ruffle. This usually means the file is incompatible or corrupted.';
+        });
+
+        player.load({ url: swfPath, allowScriptAccess: true, splashScreen: false, autoplay: 'on' });
+      });
+    </script>
+  </body>
+</html>
