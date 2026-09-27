@@ -1,14 +1,14 @@
 const demoCatalog = [
   {
     title: "Flash Nebula",
-    description: "A preserved Flash animation and atmospheric motion piece.",
+    description: "A Flash animation and atmospheric motion piece.",
     folder: "demos/flash-nebula/",
     icon: "N",
     colors: ["#d4a76a", "#7d4f3d"],
   },
   {
     title: "Eyeball Interface",
-    description: "A preserved interactive Flash interface study.",
+    description: "A interactive Flash interface study.",
     folder: "demos/eyeball-interface/",
     icon: "E",
     colors: ["#d5b48a", "#4d4a59"],
